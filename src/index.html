@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تسک دوره جاوااسکریپت</title>
+    <link rel="stylesheet" href="./styles/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <link rel="shortcut icon" href="#">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1 class="header__title">لیست تراکنش ها</h1>
+        <div class="form-container hidden">
+          <form class="search-form">
+            <input
+              class="search-input"
+              type="text"
+              placeholder="جستجو تراکنش..."
+            />
+            <button type="submit" class="search-btn">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="list-container hidden">
+        <h1 class="list__title">لیست تراکنش های شما</h1>
+        <table>
+          <thead>
+            <tr class="table-head__row">
+              <th class="table-head__data">ردیف</th>
+              <th class="table-head__data">نوع تراکنش</th>
+              <th class="table-head__data price-container">
+                <span>مبلغ</span>
+                <div class="icon-container">
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+              </th>
+              <th class="table-head__data">شماره پیگیری</th>
+              <th class="table-head__data date-container">
+                <span>تاریخ تراکنش</span>
+                <div class="icon-container">
+                  <i class="fas fa-chevron-down"></i>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="table-body">
+            <!-- <tr class="table-body__row">
+              <td class="table-body__data">10</td>
+              <td class="table-body__data">افزایش اعتبار</td>
+              <td class="table-body__data">1,000,000</td>
+              <td class="table-body__data">123456789</td>
+              <td class="table-body__data">12/08/1399 ساعت 12:22</td>
+            </tr> -->
+          
+          </tbody>
+        </table>
+      </div>
+      <div class="btn-container">
+        <button class="load-data-btn">بارگذاری تراکنش ها</button>
+      </div>
+    </div>
+    <script src="./js/index.js"></script>
+  </body>
+</html>
+
+
+
+
