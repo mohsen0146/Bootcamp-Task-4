@@ -7,7 +7,7 @@ const priceBtn = document.querySelector(".price-container");
 const dateBtn = document.querySelector(".date-container");
 const searchForm = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-input');
-
+const reLoadBtn = document.querySelector('.reload-data-btn');
 
 let allTransactionsData = [];
 
@@ -17,21 +17,26 @@ loadBtn.addEventListener("click",  () => {
     formContainer.classList.remove("hidden");
     listContainer.classList.remove("hidden");
     loadBtn.classList.add("hidden");
+    getData();
+});
+priceBtn.addEventListener("click", sortByPrice);
+dateBtn.addEventListener("click", sortByDate);
+searchForm.addEventListener("submit", searchData);
+reLoadBtn.addEventListener("click", getData)
+
+
+// *functions
+function getData(){
     axios.get("http://localhost:3000/transactions")
     .then((res) => {
         allTransactionsData = res.data;
         displayData(allTransactionsData);
     })
     .catch(err => console.log(err))
-});
-priceBtn.addEventListener("click", sortByPrice);
-dateBtn.addEventListener("click", sortByDate);
-searchForm.addEventListener("submit", searchData);
+}
 
-
-// *functions
 function displayData(data){
-    let result = [];
+    let result = "";
     searchInput.value="";
     data.forEach((data) => {
         result += `
@@ -106,4 +111,4 @@ function searchData(event){
     searchInput.value = "";
     
 }
-    
+
