@@ -10,6 +10,7 @@ const searchInput = document.querySelector('.search-input');
 const reLoadBtn = document.querySelector('.reload-data-btn');
 
 let allTransactionsData = [];
+let url = "http://localhost:3000/transactions"
 
 
 // * add Events
@@ -17,17 +18,22 @@ loadBtn.addEventListener("click",  () => {
     formContainer.classList.remove("hidden");
     listContainer.classList.remove("hidden");
     loadBtn.classList.add("hidden");
-    getData();
+    getData(url);
+    url += "?";
 });
 priceBtn.addEventListener("click", sortByPrice);
 dateBtn.addEventListener("click", sortByDate);
 searchForm.addEventListener("submit", searchData);
-reLoadBtn.addEventListener("click", getData)
+reLoadBtn.addEventListener("click", () => {
+    url = "http://localhost:3000/transactions"
+    getData(url);
+    url += "?";
+})
 
 
 // *functions
-function getData(){
-    axios.get("http://localhost:3000/transactions")
+function getData(url){
+    axios.get(`${url}`)
     .then((res) => {
         allTransactionsData = res.data;
         displayData(allTransactionsData);
@@ -48,67 +54,45 @@ function displayData(data){
         <td class="table-body__data">${new Date(data.date).toLocaleDateString("fa-Ir")}   ساعت    ${new Date(data.date).toLocaleTimeString("fa-IR", { hour: "2-digit", minute: "2-digit" })}</td>
         </tr>
         `
-    
     })
- 
     tableBody.innerHTML = result;
 }
 
 function sortByPrice(){
+    let sortUrl ;
     const priceBtnClasses = [...priceBtn.classList];
     if (priceBtnClasses.find((item) => item === "selected")){
         priceBtn.classList.remove("selected");
-        axios.get("http://localhost:3000/transactions?_sort=price&_order=asc")
-        .then((res) => {
-        allTransactionsData = res.data;
-        displayData(allTransactionsData);
-         })
-        .catch(err => console.log(err))
+        sortUrl = url + "_sort=price&_order=asc";
+        getData(sortUrl);
         }
     else {
         priceBtn.classList.add("selected");
-        axios.get("http://localhost:3000/transactions?_sort=price&_order=desc")
-        .then((res) => {
-        allTransactionsData = res.data;
-        displayData(allTransactionsData);
-         })
-        .catch(err => console.log(err))
-        
+        sortUrl = url + "_sort=price&_order=desc"
+        getData(sortUrl)
     }
 } 
 
 function sortByDate(){
+    let sortUrl;
     const dateBtnClasses = [...dateBtn.classList];
     if (dateBtnClasses.find((item) => item === "selected")){
         dateBtn.classList.remove("selected");
-        axios.get("http://localhost:3000/transactions?_sort=date&_order=asc")
-        .then((res) => {
-        allTransactionsData = res.data;
-        displayData(allTransactionsData);
-         })
-        .catch(err => console.log(err))
+        sortUrl = url + "_sort=date&_order=asc";
+        getData(sortUrl);
         }
     else {
         dateBtn.classList.add("selected");
-        axios.get("http://localhost:3000/transactions?_sort=date&_order=desc")
-        .then((res) => {
-        allTransactionsData = res.data;
-        displayData(allTransactionsData);
-         })
-        .catch(err => console.log(err))
-        
+        sortUrl = url + "_sort=date&_order=desc"
+        getData(sortUrl);    
     }
 } 
 
 function searchData(event){
     event.preventDefault();
-    axios.get(`http://localhost:3000/transactions?refId_like=${searchInput.value}`)
-    .then((res) => {
-        allTransactionsData = res.data;
-        displayData(allTransactionsData);
-    })
-    .catch(err => console.log(err))
+    url += `refId_like=${searchInput.value}`;
+    getData(url);
+    url += "&";
     searchInput.value = "";
-    
 }
 
